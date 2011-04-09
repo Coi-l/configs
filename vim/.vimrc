@@ -1,6 +1,11 @@
 "--------
 " Coil VIMRC
 "--------
+"--------
+" GENERAL SETTINGS 
+"--------
+
+let $MYVIMRC = $HOME."/.vimrc"
 
 "--------
 " TEXT OPTIONS
@@ -170,3 +175,39 @@ nmap <C-h> <<
 vmap <C-l> >gv
 vmap <C-h> <gv
 
+" step through buffers
+map <C-p> :bp <CR>
+map <C-n> :bn <CR>
+
+" map F12 to reload the vim config
+map <F12> :so $MYVIMRC <CR> :echo "Reloaded" $MYVIMRC <CR>
+
+"------
+" AUTOCOMMANDS
+"------
+
+autocmd FileType hs         source ~/.vim/syntax/haskell.vim
+autocmd FileType java       source ~/.vim/syntax/java.vim
+autocmd FileType tex        source ~/.vim/syntax/tex.vim
+autocmd FileType dot        source ~/.vim/syntax/dot.vim
+autocmd FileType asm,a      source ~/.vim/syntax/asm.vim
+autocmd FileType make       setlocal noexpandtab
+
+
+autocmd FileType python     call s:MyPythonSettings()
+
+
+"------
+" FUNCTIONS
+"------
+
+function! s:MyPythonSettings()
+  setlocal sw=4 ts=4 et
+  setlocal cindent
+  setlocal comments=:#
+  setlocal tags+=./python.ctags
+  setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
+  setlocal makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'…
+  setlocal efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+  setlocal omnifunc=pythoncomplete#Complete
+endfunction
