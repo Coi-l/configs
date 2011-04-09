@@ -182,6 +182,12 @@ map <C-n> :bn <CR>
 " map F12 to reload the vim config
 map <F12> :so $MYVIMRC <CR> :echo "Reloaded" $MYVIMRC <CR>
 
+" map Ctrl-space to auto complete / omni complete
+if has("gui")
+    inoremap <C-Space> <C-x><C-o>
+else 
+    inoremap <Nul> <C-x><C-o>
+endif
 "------
 " AUTOCOMMANDS
 "------
