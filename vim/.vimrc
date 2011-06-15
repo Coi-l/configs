@@ -180,12 +180,17 @@ vmap <C-h> <gv
 map <C-p> :bp <CR>
 map <C-n> :bn <CR>
 
+" map F2 to toggle the function list
+map <F2> :TlistToggle <CR>
 " map F12 to reload the vim config
 map <F12> :so $MYVIMRC <CR> :echo "Reloaded" $MYVIMRC <CR>
 
 " map F7 to 'compile' option
 map <F7> :make
 noremap <C-k><C-f> mzgg=G 'z<CR> :echo "Formated file" <CR>
+
+" map TAB to switch windows
+map <Tab> <C-w><C-w>
 
 " map Ctrl-space to auto complete / omni complete
 "if has("gui")
