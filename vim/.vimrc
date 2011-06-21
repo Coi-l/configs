@@ -192,8 +192,8 @@ noremap <C-k><C-f> mzgg=G 'z<CR> :echo "Formated file" <CR>
 " map TAB to switch windows
 map <Tab> <C-w><C-w>
 
-nmap <C-a> :FufCoverageFile <CR>
-nmap <C-x> :FufBuffer <CR>
+map <m-o> :FufCoverageFile <CR>
+map <m-O> :FufBuffer <CR>
 
 
 " map Ctrl-space to auto complete / omni complete
@@ -207,7 +207,7 @@ nmap <C-x> :FufBuffer <CR>
 "Private commands
 "------
 "map W to w to prevent mistakes
-command W w
+command! W w
 
 "------
 " POPUP MENU OPTION (omnicompletion)
