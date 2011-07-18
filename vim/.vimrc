@@ -13,7 +13,7 @@ let $MYVIMRC = $HOME."/.vimrc"
 set encoding=utf-8
 
 " expand tabs to spaces
-set expandtab
+"set expandtab
 
 " tab character is 4 spaces
 set tabstop=4
@@ -227,11 +227,12 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>
 "------
 
 autocmd FileType hs         source ~/.vim/syntax/haskell.vim
-autocmd FileType java       source ~/.vim/syntax/java.vim
+autocmd FileType java       call s:MyJavaSettings()
 autocmd FileType tex        source ~/.vim/syntax/tex.vim
 autocmd FileType dot        source ~/.vim/syntax/dot.vim
 autocmd FileType asm,a      source ~/.vim/syntax/asm.vim
 autocmd FileType make       setlocal noexpandtab
+autocmd FileType gitcommit	call s:MyGitCommitSettings()
 
 autocmd BufRead *.pys       set filetype=python
 autocmd FileType python     call s:MyPythonSettings()
@@ -241,6 +242,18 @@ autocmd FileType c,h,cpp,cc call s:MyCSettings()
 "------
 " FUNCTIONS
 "------
+function! s:MyGitCommitSettings()
+	setlocal textwidth=70
+endfunction
+
+function! s:MyJavaSettings()
+	source ~/.vim/syntax/java.vim
+	setlocal expandtab
+	setlocal tabstop=4
+	setlocal softtabstop=4
+	setlocal shiftwidth=4
+	setlocal textwidth=100
+endfunction
 
 function! s:MyCSettings()
     source ~/.vim/syntax/c.vim
@@ -258,7 +271,12 @@ function! s:MyCSettings()
     setlocal omnifunc=ccomplete#Complete
     setlocal completeopt=menu,preview,menuone,longest
     setlocal complete=.,w,b,u,t,i
-    let c_C99=1
+	setlocal noexpandtab
+    setlocal tabstop=8
+	setlocal softtabstop=8
+	setlocal shiftwidth=8
+
+	let c_C99=1
     let c_c_vim_compatible=1
     let c_comment_strings=1
     let c_comment_numbers=1
