@@ -1,4 +1,3 @@
-"--------
 " Coil VIMRC
 "--------
 "--------
@@ -13,7 +12,7 @@ let $MYVIMRC = $HOME."/.vimrc"
 set encoding=utf-8
 
 " expand tabs to spaces
-"set expandtab
+set expandtab
 
 " tab character is 4 spaces
 set tabstop=4
@@ -101,9 +100,9 @@ endif
 set showmode
 
 " set the highlightning options...
-set highlight=8r,db,es,hs,mb,Mr,nu,rs,sr,tb,vr,ws 
+set highlight=8r,db,es,hs,mb,Mr,nu,rs,sr,tb,vr,ws
 
-" show the file position 
+" show the file position
 set ruler
 
 " always show a report when lines were changed
@@ -117,6 +116,9 @@ set showmatch
 
 " time to show matching brackets
 set matchtime=2
+
+" set gui font
+set guifont=Monospace\ 8
 
 "------
 " MISC
@@ -180,8 +182,31 @@ vmap <C-h> <gv
 map <C-p> :bp <CR>
 map <C-n> :bn <CR>
 
+"-----------------------------------------------------------------------------
+" Highlight EOL whitespace, http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+
+highlight ExtraWhitespace ctermbg=darkred guibg=#ff0000
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+" the above flashes annoyingly while typing, be calmer in insert mode
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+
+function! s:FixWhitespace(line1,line2)
+    let l:save_cursor = getpos(".")
+    silent! execute ':' . a:line1 . ',' . a:line2 . 's/\s\+$//'
+    call setpos('.', l:save_cursor)
+endfunction
+
+" Run :FixWhitespace to remove end of line white space.
+command! -range=% FixWhitespace call <SID>FixWhitespace(<line1>,<line2>)
+
+"-----------------------------------------------------------------------------
+
 " map F2 to toggle the function list
 map <F2> :TlistToggle <CR>
+" map F3 to toggle list on off
+map <F3> :set list! <CR>
 " map F12 to reload the vim config
 map <F12> :so $MYVIMRC <CR> :echo "Reloaded" $MYVIMRC <CR>
 
@@ -199,9 +224,16 @@ map <m-O> :FufBuffer <CR>
 " map Ctrl-space to auto complete / omni complete
 "if has("gui")
 "inoremap <C-Space> <C-x><C-o>
-"else 
+"else
 "inoremap <Nul> <C-x><C-o>
 "endif
+
+" highlight trailing whitespace
+"highlight TrailWhitespace ctermbg=red guibg=red
+" match TrailWhitespace /\s\+$\| \+\ze\t/
+" activate whitespace highlight even when Syntax highlight is on
+"autocmd Syntax * syn match TrailWhitespace /\s\+$\| \+\ze\t/
+
 
 "------
 "Private commands
@@ -239,6 +271,7 @@ autocmd FileType python     call s:MyPythonSettings()
 autocmd FileType pys        call s:MyPythonSettings()
 autocmd FileType c,h,cpp,cc call s:MyCSettings()
 
+autocmd BufRead .bash_aliases set filetype=sh
 "------
 " FUNCTIONS
 "------
@@ -271,7 +304,7 @@ function! s:MyCSettings()
     setlocal omnifunc=ccomplete#Complete
     setlocal completeopt=menu,preview,menuone,longest
     setlocal complete=.,w,b,u,t,i
-	setlocal noexpandtab
+	setlocal expandtab
     setlocal tabstop=8
 	setlocal softtabstop=8
 	setlocal shiftwidth=8
@@ -294,6 +327,18 @@ function! s:MyCSettings()
 
 endfunction
 
+function! QualcommFile()
+    setlocal tabstop=3
+    setlocal softtabstop=3
+    setlocal shiftwidth=3
+endfunction
+
+function! RepoFile()
+    setlocal tabstop=2
+    setlocal softtabstop=2
+    setlocal shiftwidth=2
+endfunction
+
 function! s:MyPythonSettings()
     "pep8 friendly
     setlocal noic
@@ -309,4 +354,42 @@ function! s:MyPythonSettings()
     setlocal makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
     setlocal efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
     setlocal omnifunc=pythoncomplete#Complete
+endfunction
+
+" helper function to toggle hex mode
+function! s:ToggleHex()
+    " hex mode should be considered a read-only operation
+    " save values for modified and read-only for restoration later,
+    " and clear the read-only flag for now
+    let l:modified=&mod
+    let l:oldreadonly=&readonly
+    let &readonly=0
+    let l:oldmodifiable=&modifiable
+    let &modifiable=1
+    if !exists("b:editHex") || !b:editHex
+        " save old options
+        let b:oldft=&ft
+        let b:oldbin=&bin
+        " set new options
+        setlocal binary " make sure it overrides any textwidth, etc.
+        let &ft="xxd"
+        " set status
+        let b:editHex=1
+        " switch to hex editor
+        %!xxd
+    else
+        " restore old options
+        let &ft=b:oldft
+        if !b:oldbin
+            setlocal nobinary
+        endif
+        "set status
+        let b:editHex=0
+        "return to normal editing
+        %!xxd -r
+    endif
+    "restore values for modified and read only state
+    let &mod=l:modified
+    let &readonly=l:oldreadonly
+    let &modifiable=l:oldmodifiable
 endfunction
