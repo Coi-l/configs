@@ -253,6 +253,14 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
+"------
+" SET GUI WINDOW SIZE
+"------
+if has("gui_running")
+    set columns=100
+    " set lines=50
+endif
+
 
 "------
 " AUTOCOMMANDS
