@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/olof/.m2'
+let g:netrw_dirhist_2='/home/olof/git/gateway/app'
+let g:netrw_dirhist_3='/home/olof/repo/.repo'
+let g:netrw_dirhist_4='/home/olof/Templates'
+let g:netrw_dirhist_5='/home/olof/git/build_output/IPReceiver-service-22.0-SNAPSHOT/target/surefire-reports'
+let g:netrw_dirhist_6='/home/olof/.vim'
+let g:netrw_dirhist_7='/etc/udev/rules.d'

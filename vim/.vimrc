@@ -1,7 +1,7 @@
 " Coil VIMRC
 "--------
 "--------
-" GENERAL SETTINGS 
+" GENERAL SETTINGS
 "--------
 
 let $MYVIMRC = $HOME."/.vimrc"
@@ -55,7 +55,7 @@ set history=1000
 set clipboard+=unnamed
 
 " write buffer when leaving
-set autowrite
+" set autowrite
 
 " no backup or swap
 set nowb
@@ -127,7 +127,7 @@ set guifont=Monospace\ 8
 " enable automatic filetype detection
 filetype on
 filetype plugin indent on
-syntax on
+" syntax on
 
 " the character for "expansion" or "tab-competion" on the command line
 set wildchar=<TAB>
@@ -179,8 +179,8 @@ vmap <C-l> >gv
 vmap <C-h> <gv
 
 " step through buffers
-map <C-p> :bp <CR>
-map <C-n> :bn <CR>
+map <C-p> :bp! <CR>
+map <C-n> :bn! <CR>
 
 "-----------------------------------------------------------------------------
 " Highlight EOL whitespace, http://vim.wikia.com/wiki/Highlight_unwanted_spaces
@@ -204,9 +204,11 @@ command! -range=% FixWhitespace call <SID>FixWhitespace(<line1>,<line2>)
 "-----------------------------------------------------------------------------
 
 " map F2 to toggle the function list
-map <F2> :TlistToggle <CR>
+map <F2> :TagbarToggle<CR>
 " map F3 to toggle list on off
 map <F3> :set list! <CR>
+map <F4> :FufCoverageFile <CR>
+map <F5> :NERDTreeToggle <CR>
 " map F12 to reload the vim config
 map <F12> :so $MYVIMRC <CR> :echo "Reloaded" $MYVIMRC <CR>
 
@@ -217,7 +219,6 @@ noremap <C-k><C-f> mzgg=G 'z<CR> :echo "Formated file" <CR>
 " map TAB to switch windows
 map <Tab> <C-w><C-w>
 
-map <m-o> :FufCoverageFile <CR>
 map <m-O> :FufBuffer <CR>
 
 
@@ -258,7 +259,7 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>
 "------
 if has("gui_running")
     set columns=100
-    " set lines=50
+    set lines=65
 endif
 
 
@@ -280,6 +281,7 @@ autocmd FileType pys        call s:MyPythonSettings()
 autocmd FileType c,h,cpp,cc call s:MyCSettings()
 
 autocmd BufRead .bash_aliases set filetype=sh
+autocmd BufRead makefile.inc set filetype=make
 "------
 " FUNCTIONS
 "------
@@ -333,12 +335,6 @@ function! s:MyCSettings()
     let c_gnu=1
     let c_syntax_for_h=1
 
-endfunction
-
-function! QualcommFile()
-    setlocal tabstop=3
-    setlocal softtabstop=3
-    setlocal shiftwidth=3
 endfunction
 
 function! RepoFile()
