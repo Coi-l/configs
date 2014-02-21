@@ -124,7 +124,7 @@ set showmatch
 set matchtime=2
 
 " set gui font
-set guifont=Monospace\ 8
+"set guifont=Monospace\ 8
 
 "------
 " MISC
