@@ -207,19 +207,12 @@ command! -range=% FixWhitespace call <SID>FixWhitespace(<line1>,<line2>)
 map <F2> :TagbarToggle<CR>
 " map F3 to toggle list on off
 map <F3> :set list! <CR>
-map <F4> :FufCoverageFile <CR>
 map <F5> :NERDTreeToggle <CR>
 " map F12 to reload the vim config
 map <F12> :so $MYVIMRC <CR> :echo "Reloaded" $MYVIMRC <CR>
 
-" map F7 to 'compile' option
-map <F7> :make
-noremap <C-k><C-f> mzgg=G 'z<CR> :echo "Formated file" <CR>
-
 " map TAB to switch windows
 map <Tab> <C-w><C-w>
-
-map <m-O> :FufBuffer <CR>
 
 
 " map Ctrl-space to auto complete / omni complete
@@ -360,40 +353,3 @@ function! s:MyPythonSettings()
     setlocal omnifunc=pythoncomplete#Complete
 endfunction
 
-" helper function to toggle hex mode
-function! s:ToggleHex()
-    " hex mode should be considered a read-only operation
-    " save values for modified and read-only for restoration later,
-    " and clear the read-only flag for now
-    let l:modified=&mod
-    let l:oldreadonly=&readonly
-    let &readonly=0
-    let l:oldmodifiable=&modifiable
-    let &modifiable=1
-    if !exists("b:editHex") || !b:editHex
-        " save old options
-        let b:oldft=&ft
-        let b:oldbin=&bin
-        " set new options
-        setlocal binary " make sure it overrides any textwidth, etc.
-        let &ft="xxd"
-        " set status
-        let b:editHex=1
-        " switch to hex editor
-        %!xxd
-    else
-        " restore old options
-        let &ft=b:oldft
-        if !b:oldbin
-            setlocal nobinary
-        endif
-        "set status
-        let b:editHex=0
-        "return to normal editing
-        %!xxd -r
-    endif
-    "restore values for modified and read only state
-    let &mod=l:modified
-    let &readonly=l:oldreadonly
-    let &modifiable=l:oldmodifiable
-endfunction
