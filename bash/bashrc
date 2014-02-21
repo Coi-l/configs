@@ -2,7 +2,9 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-PATH=~/bin:$PATH
+PATH=~/bin:/usr/local/bin:$PATH
+source /usr/local/git/contrib/completion/git-prompt.sh
+source /usr/local/git/contrib/completion/git-completion.bash
 
 # If not running interactively, don't do anything
 case $- in
@@ -65,7 +67,6 @@ if [ "$color_prompt" = yes ]; then
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -80,6 +81,15 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
+elif [ -x /usr/local/bin/gdircolors ]; then
+    test -r ~/.dircolors && eval "$(gdircolors -b ~/.dircolors)" || eval "$(gdircolors -b)"
+    alias ls='gls --color=auto'
+else
+    export CLICOLOR=1
+    export LSCOLORS=GxFxCxDxBxegedabagaced
+fi
+
+if [ "$color_prompt" = yes ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -88,6 +98,17 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
     alias grepc='grep --exclude-dir .git -nri'
 fi
+
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
 
 # some more ls aliases
 alias ll='ls -alF'
