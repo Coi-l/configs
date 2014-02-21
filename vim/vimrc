@@ -2,8 +2,10 @@
 "--------
 "
 "--------
-"PATHOGEN
+" PATHOGEN
+"--------
 call pathogen#infect()
+
 "--------
 " GENERAL SETTINGS
 "--------
@@ -183,8 +185,8 @@ vmap <C-l> >gv
 vmap <C-h> <gv
 
 " step through buffers
-map <C-p> :bp! <CR>
-map <C-n> :bn! <CR>
+map <C-b> :bp! <CR>
+map <C-B> :bn! <CR>
 
 "-----------------------------------------------------------------------------
 " Highlight EOL whitespace, http://vim.wikia.com/wiki/Highlight_unwanted_spaces
@@ -243,13 +245,13 @@ command! W w
 " POPUP MENU OPTION (omnicompletion)
 "------
 " insert only matched text, show menu even for one item
-set completeopt=longest,menuone
+"set completeopt=longest,menuone
 " make Enter select the current highlighted item
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " when pressing C-p or C-n automatically select the last or first item in the
 " list by simulating up/down press
-inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 "------
 " SET GUI WINDOW SIZE
