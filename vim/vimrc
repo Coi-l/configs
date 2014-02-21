@@ -79,7 +79,7 @@ set smartindent
 
 " set colorscheme
 set t_Co=256
-"colorscheme xoria256
+colorscheme xoria256
 
 " enable syntax highlightning
 syntax enable
