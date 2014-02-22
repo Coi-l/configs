@@ -79,12 +79,15 @@ set smartindent
 " VISUAL OPTIONS
 "--------
 
-" set colorscheme
-set t_Co=256
-colorscheme xoria256
-
 " enable syntax highlightning
 syntax enable
+
+" set colorscheme
+set t_Co=256
+"colorscheme xoria256
+set background=dark
+colorscheme solarized
+
 
 " always display the status line
 set laststatus=2
