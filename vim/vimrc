@@ -262,6 +262,12 @@ endif
 " PLUGIN CUSTOMIZATION
 "------
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_alt_sep = '|'
+" -- do not show diff in statusbar
+let g:airline#extensions#hunks#enabled = 0
+
+" -- escape grep since it's aliased
+let g:gitgutter_escape_grep = 1
 
 "------
 " AUTOCOMMANDS
@@ -273,7 +279,7 @@ autocmd FileType tex        source ~/.vim/syntax/tex.vim
 autocmd FileType dot        source ~/.vim/syntax/dot.vim
 autocmd FileType asm,a      source ~/.vim/syntax/asm.vim
 autocmd FileType make       setlocal noexpandtab
-autocmd FileType gitcommit	call s:MyGitCommitSettings()
+autocmd FileType gitcommit  call s:MyGitCommitSettings()
 
 autocmd BufRead *.pys       set filetype=python
 autocmd FileType python     call s:MyPythonSettings()
@@ -286,15 +292,15 @@ autocmd BufRead makefile.inc set filetype=make
 " FUNCTIONS
 "------
 function! s:MyGitCommitSettings()
-	setlocal textwidth=69
+    setlocal textwidth=69
 endfunction
 
 function! s:MyJavaSettings()
-	setlocal expandtab
-	setlocal tabstop=4
-	setlocal softtabstop=4
-	setlocal shiftwidth=4
-	setlocal textwidth=100
+    setlocal expandtab
+    setlocal tabstop=4
+    setlocal softtabstop=4
+    setlocal shiftwidth=4
+    setlocal textwidth=100
 
     let java_space_errors=1
 endfunction
@@ -314,12 +320,12 @@ function! s:MyCSettings()
     setlocal omnifunc=ccomplete#Complete
     setlocal completeopt=menu,preview,menuone,longest
     setlocal complete=.,w,b,u,t,i
-	setlocal expandtab
+    setlocal expandtab
     setlocal tabstop=8
-	setlocal softtabstop=8
-	setlocal shiftwidth=8
+    setlocal softtabstop=8
+    setlocal shiftwidth=8
 
-	let c_C99=1
+    let c_C99=1
     let c_c_vim_compatible=1
     let c_comment_strings=1
     let c_comment_numbers=1
