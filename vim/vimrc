@@ -290,7 +290,6 @@ function! s:MyGitCommitSettings()
 endfunction
 
 function! s:MyJavaSettings()
-	source ~/.vim/syntax/java.vim
 	setlocal expandtab
 	setlocal tabstop=4
 	setlocal softtabstop=4
@@ -301,7 +300,6 @@ function! s:MyJavaSettings()
 endfunction
 
 function! s:MyCSettings()
-    source ~/.vim/syntax/c.vim
     setlocal cindent
     " make unclosed parantheses new line start at first
     " whitspace after paren
