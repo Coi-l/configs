@@ -197,6 +197,7 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 " the above flashes annoyingly while typing, be calmer in insert mode
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd BufWinLeave * call clearmatches()
 
 function! s:FixWhitespace(line1,line2)
     let l:save_cursor = getpos(".")
@@ -227,13 +228,6 @@ map <Tab> <C-w><C-w>
 "else
 "inoremap <Nul> <C-x><C-o>
 "endif
-
-" highlight trailing whitespace
-"highlight TrailWhitespace ctermbg=red guibg=red
-" match TrailWhitespace /\s\+$\| \+\ze\t/
-" activate whitespace highlight even when Syntax highlight is on
-"autocmd Syntax * syn match TrailWhitespace /\s\+$\| \+\ze\t/
-
 
 "------
 "Private commands
@@ -285,7 +279,7 @@ autocmd BufRead makefile.inc set filetype=make
 " FUNCTIONS
 "------
 function! s:MyGitCommitSettings()
-	setlocal textwidth=70
+	setlocal textwidth=69
 endfunction
 
 function! s:MyJavaSettings()
@@ -295,6 +289,8 @@ function! s:MyJavaSettings()
 	setlocal softtabstop=4
 	setlocal shiftwidth=4
 	setlocal textwidth=100
+
+    let java_space_errors=1
 endfunction
 
 function! s:MyCSettings()
@@ -333,6 +329,7 @@ function! s:MyCSettings()
     let c_C89=1
     let c_gnu=1
     let c_syntax_for_h=1
+    let c_space_errors=1
 
 endfunction
 
