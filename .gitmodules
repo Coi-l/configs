@@ -10,3 +10,6 @@
 [submodule "vim/vim/bundle/tagbar"]
 	path = vim/vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "vim/vim/bundle/sqlcomplete"]
+	path = vim/vim/bundle/sqlcomplete
+	url = https://github.com/vim-scripts/SQLComplete.vim.git
