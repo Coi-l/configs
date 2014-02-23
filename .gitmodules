@@ -28,3 +28,6 @@
 [submodule "vim/vim/bundle/luna"]
 	path = vim/vim/bundle/luna
 	url = https://github.com/Pychimp/vim-luna.git
+[submodule "vim/vim/bundle/nerdcommenter"]
+	path = vim/vim/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git

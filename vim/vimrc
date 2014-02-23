@@ -1,6 +1,8 @@
 " Coil VIMRC
 "--------
 "
+let mapleader = " "
+
 "--------
 " PATHOGEN
 "--------
@@ -136,7 +138,8 @@ set matchtime=2
 " enable automatic filetype detection
 filetype on
 filetype plugin indent on
-" syntax on
+filetype plugin on
+
 
 " the character for "expansion" or "tab-competion" on the command line
 set wildchar=<TAB>
