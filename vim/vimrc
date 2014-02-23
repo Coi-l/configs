@@ -86,7 +86,7 @@ syntax enable
 set t_Co=256
 "colorscheme xoria256
 set background=dark
-colorscheme solarized
+colorscheme luna
 
 
 " always display the status line
@@ -190,6 +190,8 @@ vmap <C-h> <gv
 " step through buffers
 map <C-b> :bp! <CR>
 map <C-B> :bn! <CR>
+
+map <silent> å <C-]>
 
 "-----------------------------------------------------------------------------
 " Highlight EOL whitespace, http://vim.wikia.com/wiki/Highlight_unwanted_spaces
